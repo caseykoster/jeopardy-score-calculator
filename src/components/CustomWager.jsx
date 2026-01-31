@@ -27,13 +27,13 @@ export default function CustomWager({ onScore }) {
           onClick={() => handleCustomAmount(true)}
           className="correct-btn"
         >
-          Correct
+          ✓
         </button>
         <button
           onClick={() => handleCustomAmount(false)}
           className="incorrect-btn"
         >
-          Incorrect
+          ✗
         </button>
       </div>
     </div>

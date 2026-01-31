@@ -131,7 +131,7 @@ export default function App() {
         onScore={(amount) => updateScore(selectedPlayer, amount)}
       />
 
-      {/* Add Player */ }
+      {/* Change Game */ }
       <div className="players-section">
         <div className="players-grid">
           {players.length < 6 && (
@@ -143,11 +143,6 @@ export default function App() {
           Reset Game
         </button>
         </div>
-      </div>
-
-      {/* Reset Game */}
-      <div className="controls">
-        
       </div>
 
       {/* History */}
