@@ -11,8 +11,6 @@ const DOUBLE_JEOPARDY_VALUES = [400, 800, 1200, 1600, 2000];
 export default function App() {
   const [players, setPlayers] = useState([
     { id: 1, name: 'Player 1', score: 0 },
-    { id: 2, name: 'Player 2', score: 0 },
-    { id: 3, name: 'Player 3', score: 0 },
   ]);
   const [selectedPlayer, setSelectedPlayer] = useState(1);
   const [isDoubleJeopardy, setIsDoubleJeopardy] = useState(false);
@@ -64,7 +62,7 @@ export default function App() {
   };
 
   const removePlayer = (id) => {
-    if (players.length <= 2) return;
+    if (players.length <= 1) return;
     setPlayers(prev => prev.filter(p => p.id !== id));
     if (selectedPlayer === id) {
       setSelectedPlayer(players.find(p => p.id !== id)?.id || 1);
@@ -105,7 +103,7 @@ export default function App() {
               onSelect={() => setSelectedPlayer(player.id)}
               onNameChange={(name) => updatePlayerName(player.id, name)}
               onRemove={() => removePlayer(player.id)}
-              canRemove={players.length > 2}
+              canRemove={players.length > 1}
             />
           ))}
           {players.length < 6 && (
