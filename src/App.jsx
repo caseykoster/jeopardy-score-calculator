@@ -106,12 +106,18 @@ export default function App() {
               canRemove={players.length > 1}
             />
           ))}
-          {players.length < 6 && (
-            <button onClick={addPlayer} className="add-player-btn">
-              + Add Player
-            </button>
-          )}
         </div>
+      </div>
+
+      {/* Controls */}
+      <div className="controls">
+        <button
+          onClick={undoLast}
+          disabled={history.length === 0}
+          className="control-btn"
+        >
+          ↩ Undo
+        </button>
       </div>
 
       {/* Point Values */}
@@ -125,18 +131,23 @@ export default function App() {
         onScore={(amount) => updateScore(selectedPlayer, amount)}
       />
 
-      {/* Controls */}
-      <div className="controls">
-        <button
-          onClick={undoLast}
-          disabled={history.length === 0}
-          className="control-btn"
-        >
-          ↩ Undo
-        </button>
-        <button onClick={resetGame} className="reset-btn">
+      {/* Add Player */ }
+      <div className="players-section">
+        <div className="players-grid">
+          {players.length < 6 && (
+            <button onClick={addPlayer} className="add-player-btn">
+              + Add Player
+            </button>
+          )}
+          <button onClick={resetGame} className="reset-btn">
           Reset Game
         </button>
+        </div>
+      </div>
+
+      {/* Reset Game */}
+      <div className="controls">
+        
       </div>
 
       {/* History */}
