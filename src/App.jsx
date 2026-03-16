@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
 import PlayerCard from './components/PlayerCard';
 import PointButtons from './components/PointButtons';
 import CustomWager from './components/CustomWager';
@@ -7,14 +7,38 @@ import './App.css';
 
 const POINT_VALUES = [200, 400, 600, 800, 1000];
 const DOUBLE_JEOPARDY_VALUES = [400, 800, 1200, 1600, 2000];
+const DEFAULT_PLAYERS = [
+  { id: 1, name: 'Player 1', score: 0 },
+  { id: 2, name: 'Player 2', score: 0 },
+  { id: 3, name: 'Player 3', score: 0 },
+];
+
+const loadFromStorage = (key, defaultValue) => {
+  const saved = localStorage.getItem(key);
+  return saved ? JSON.parse(saved) : defaultValue;
+};
 
 export default function App() {
-  const [players, setPlayers] = useState([
-    { id: 1, name: 'Player 1', score: 0 },
-  ]);
-  const [selectedPlayer, setSelectedPlayer] = useState(1);
-  const [isDoubleJeopardy, setIsDoubleJeopardy] = useState(false);
-  const [history, setHistory] = useState([]);
+  const [players, setPlayers] = useState(() => loadFromStorage('jeopardy-players', DEFAULT_PLAYERS));
+  const [selectedPlayer, setSelectedPlayer] = useState(() => loadFromStorage('jeopardy-selected', 1));
+  const [isDoubleJeopardy, setIsDoubleJeopardy] = useState(() => loadFromStorage('jeopardy-double', false));
+  const [history, setHistory] = useState(() => loadFromStorage('jeopardy-history', []));
+ 
+  useEffect(() => {
+    localStorage.setItem('jeopardy-players', JSON.stringify(players));
+  }, [players]);
+ 
+  useEffect(() => {
+    localStorage.setItem('jeopardy-selected', JSON.stringify(selectedPlayer));
+  }, [selectedPlayer]);
+ 
+  useEffect(() => {
+    localStorage.setItem('jeopardy-double', JSON.stringify(isDoubleJeopardy));
+  }, [isDoubleJeopardy]);
+ 
+  useEffect(() => {
+    localStorage.setItem('jeopardy-history', JSON.stringify(history));
+  }, [history]);
 
   const pointValues = isDoubleJeopardy ? DOUBLE_JEOPARDY_VALUES : POINT_VALUES;
 
