@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
-export default function CustomWager({ onScore }) {
-  const [customAmount, setCustomAmount] = useState('');
-
+export default function CustomWager({ onScore, customAmount, setCustomAmount  }) {
   const handleCustomAmount = (isCorrect) => {
     const amount = parseInt(customAmount, 10);
     if (!isNaN(amount) && amount > 0) {

@@ -23,6 +23,7 @@ export default function App() {
   const [selectedPlayer, setSelectedPlayer] = useState(() => loadFromStorage('jeopardy-selected', 1));
   const [isDoubleJeopardy, setIsDoubleJeopardy] = useState(() => loadFromStorage('jeopardy-double', false));
   const [history, setHistory] = useState(() => loadFromStorage('jeopardy-history', []));
+  const [customAmount, setCustomAmount] = useState(() => loadFromStorage('jeopardy-custom', ''));
  
   useEffect(() => {
     localStorage.setItem('jeopardy-players', JSON.stringify(players));
@@ -39,6 +40,10 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('jeopardy-history', JSON.stringify(history));
   }, [history]);
+
+  useEffect(() => {
+  localStorage.setItem('jeopardy-custom', JSON.stringify(customAmount));
+}, [customAmount]);
 
   const pointValues = isDoubleJeopardy ? DOUBLE_JEOPARDY_VALUES : POINT_VALUES;
 
@@ -72,6 +77,7 @@ export default function App() {
     setPlayers(prev => prev.map(p => ({ ...p, score: 0 })));
     setHistory([]);
     setIsDoubleJeopardy(false);
+    setCustomAmount('');
   };
 
   const updatePlayerName = (id, name) => {
@@ -153,6 +159,8 @@ export default function App() {
       {/* Custom Amount */}
       <CustomWager
         onScore={(amount) => updateScore(selectedPlayer, amount)}
+        customAmount={customAmount}
+        setCustomAmount={setCustomAmount}
       />
 
       {/* Change Game */ }
